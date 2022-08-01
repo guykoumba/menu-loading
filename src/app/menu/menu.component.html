@@ -1,4 +1,4 @@
-<button *ngIf="isRootNode" mat-button [matMenuTriggerFor]="menu">
+<!-- <button *ngIf="isRootNode" mat-button [matMenuTriggerFor]="menu">
     {{ trigger }}
 </button>
 <button mat-menu-item *ngIf="!isRootNode" [matMenuTriggerFor]="menu" (menuOpened)="getData(trigger)">
@@ -14,6 +14,31 @@
         </button>
         <ng-template #menuItem>
             <button mat-menu-item>{{ node }}</button>
+        </ng-template>
+    </ng-container>
+</mat-menu> -->
+<ng-container *ngIf="isRootNode">
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="haveSubMenu(menuData.id); else topMenu">
+        {{ menuData.text }}
+    </button>
+    <ng-template #topMenu>
+        <button *ngIf="isRootNode" mat-button >
+            {{ menuData.text }}
+        </button>
+    </ng-template>
+</ng-container>
+
+<button mat-menu-item *ngIf="!isRootNode" [matMenuTriggerFor]="menu" (menuOpened)="getSubMenus(menuData.id)"
+    #mt="matMenuTrigger" (mousemove)="onMouseOver(mt)">
+    {{ menuData.text }}
+</button>
+<mat-menu #menu="matMenu">
+    <ng-container *ngFor="let item of items; let i = index">
+        <button mat-menu-item>
+            <app-menu [menuData]="item" *ngIf="haveSubMenu(item.id); else menuItem"></app-menu>
+        </button>
+        <ng-template #menuItem>
+            <button mat-menu-item>{{ item.text }}</button>
         </ng-template>
     </ng-container>
 </mat-menu>

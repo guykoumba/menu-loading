@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatMenu, MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
 import { DynamicDatabase } from '../database/DynamicDatabase';
 import MenuItem from '../database/menuitem';
 
@@ -12,6 +13,7 @@ export class MenuComponent implements OnInit {
   @Input() data: string[] = [];
   @Input() items: MenuItem[] = [];
   @Input() trigger = "Trigger";
+  @Input() menuData!: MenuItem ;
   @Input() isRootNode = false;
 
   isLoading = false;
@@ -20,6 +22,7 @@ export class MenuComponent implements OnInit {
   constructor(private database: DynamicDatabase) { }
 
   ngOnInit(): void {
+    this.getSubMenus(this.menuData.id);
   }
 
   isParent(menu: MenuItem) {
@@ -50,5 +53,14 @@ export class MenuComponent implements OnInit {
         this.dataLoaded = true;
       });
     }
+  }
+
+  haveSubMenu(menuId: Number) {
+    return this.database.haveSubMenu(menuId);
+  }
+
+  onMouseOver(menu: MatMenuTrigger) {
+    //console.log(menu);
+    menu.openMenu();
   }
 }

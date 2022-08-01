@@ -1,3 +1,3 @@
-<app-menu [trigger]="'Food'" [data]="initialData" [isRootNode]="true"></app-menu>
+<!-- <app-menu [trigger]="'Food'" [data]="initialData" [isRootNode]="true"></app-menu> -->
 <hr style="margin-bottom: 5px;" />
-<app-menu *ngFor="let menu of userMenus; let i=index;" [isRootNode]="true" [trigger]="getText(menu)" ></app-menu>
+<app-menu *ngFor="let menu of userMenus; let i=index;" [menuData]="menu" [isRootNode]="true"  ></app-menu>

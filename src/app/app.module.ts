@@ -19,7 +19,7 @@ import { MenuComponent } from './menu/menu.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatMenuModule,
+    MatMenuModule,    
     MatButtonModule,
     MatProgressSpinnerModule
   ],
